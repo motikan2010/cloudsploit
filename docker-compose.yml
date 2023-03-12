@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  cloudsploit:
+    image: cloudsploit:0.0.1
+    build:
+       context: .
+       dockerfile: ./Dockerfile
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - MASTER_AWS_ACCESS_KEY_ID=${MASTER_AWS_ACCESS_KEY_ID}
+      - MASTER_AWS_SECRET_ACCESS_KEY=${MASTER_AWS_SECRET_ACCESS_KEY}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - S3_BUCKET_KEY_PREFIX=${S3_BUCKET_KEY_PREFIX}
+      - RESULT_FILE_NAME=${RESULT_FILE_NAME}
+      - COLLECTION_FILE_NAME=${COLLECTION_FILE_NAME}
+    #command: ['sh', '-c', 'node /var/scan/cloudsploit/index.js --console=none --json=/tmp/result.json --collection=/tmp/collection.json --cloud aws --plugin apigatewayCertificateRotation && node /var/scan/cloudsploit/uploader.js']
+    command: ['sh', '-c', 'node /var/scan/cloudsploit/index.js --console=none --json=/tmp/result.json --collection=/tmp/collection.json && node /var/scan/cloudsploit/uploader.js']
